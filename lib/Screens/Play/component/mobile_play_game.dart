@@ -166,13 +166,11 @@ class _PlayGameInitState extends State<PlayGameInit> {
               (e)=>AnswerGame(
                 text: e,
                 check: true,
+                current: _currentIndex,
               ),
             ),
           ],
         ),
-        ElevatedButton(onPressed: (){ setState(() {
-          _currentIndex++;
-        });}, child: Text('nhan')),
         const SizedBox(height: defaultPadding),
         Container(
           decoration: const BoxDecoration(

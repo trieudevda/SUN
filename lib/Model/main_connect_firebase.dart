@@ -14,10 +14,10 @@ class MainConnect{
   // login
   Future<void> signInEmail(String email,String password,BuildContext context) async {
     try {
-      // await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(

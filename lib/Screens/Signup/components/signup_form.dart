@@ -16,6 +16,7 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final email=TextEditingController();
   final password=TextEditingController();
+  final rePassword=TextEditingController();
   bool checkpass=true;
   void checkPass(){
     if(checkpass==true){
@@ -121,10 +122,32 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            child: TextFormField(
+              controller: rePassword,
+              textInputAction: TextInputAction.done,
+              obscureText: checkpass?true:false,
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                hintText: "Nhập lại mật khẩu",
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: IconButton(
+                    padding: const EdgeInsets.all(0),
+                    onPressed: (){
+                      checkPass();
+                    },
+                    icon: Icon(checkpass?Icons.lock:Icons.lock_open),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () {
-              if (regexEmail() && checkLength() ) {
+              if ( password.text==rePassword.text && regexEmail() && checkLength() ) {
                 signup(context);
               } else {
                 showDialogCustom(context,'Xin vui lòng kiểm tra lại email và mật khẩu');
