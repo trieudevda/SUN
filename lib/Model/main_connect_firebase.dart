@@ -10,7 +10,7 @@ class MainConnect{
   final collectionData;
   final documentData;
   MainConnect({this.inforUser,this.jsonData,this.collectionData,this.documentData});
-
+  // 'timestamp': FieldValue.serverTimestamp()
   // login
   Future<void> signInEmail(String email,String password,BuildContext context) async {
     try {
