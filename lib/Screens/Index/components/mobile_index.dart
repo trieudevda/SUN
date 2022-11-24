@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_an/Model/main_connect_firebase.dart';
+import 'package:do_an/Screens/Index/components/Widget/game_statistics.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
 import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
 import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
@@ -69,6 +70,61 @@ class _MobileIndexState extends State<MobileIndex> {
                   ),
                   VoiCustom(),
                   SingCustom()
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  //Game statistics show index
+  Future<dynamic> _showStatistics(BuildContext context, String content) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Container(
+            // color: kPrimaryColor,
+            child: Row(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.bar_chart_outlined,
+                    color: Colors.purple,
+                  ),
+                  title: const Text(
+                    'Số liệu thống kê',
+                    style: TextStyle(
+                        color: Colors.purple,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      )),
+                )
+              ],
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  CustomChart(),
                 ],
               ),
             ),
