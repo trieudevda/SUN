@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_an/Model/main_connect_firebase.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
+import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
 import 'package:do_an/Screens/Index/components/Widget/widget_diem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,13 +19,13 @@ class MobileIndex extends StatefulWidget {
 }
 
 class _MobileIndexState extends State<MobileIndex> {
-  final mainConnect=MainConnect();
+  final mainConnect = MainConnect();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding:const EdgeInsets.only(left: 20.0, right: 20.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         child: Column(
           children: <Widget>[
             const SizedBox(height: defaultPadding),
@@ -33,10 +34,10 @@ class _MobileIndexState extends State<MobileIndex> {
               children: <Widget>[
                 IconButton(
                   iconSize: 30,
-                    onPressed: (){
+                  onPressed: () {
                     mainConnect.logoutFirebase(context);
-                    },
-                    icon:const Icon(Icons.logout),
+                  },
+                  icon: const Icon(Icons.logout),
                 ),
                 WidgetDiem(),
               ],
@@ -44,35 +45,36 @@ class _MobileIndexState extends State<MobileIndex> {
             const SizedBox(height: defaultPadding),
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height-104,
+              height: MediaQuery.of(context).size.height - 104,
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
                   Container(
-                    padding:const EdgeInsets.only(top:100),
+                    padding: const EdgeInsets.only(top: 100),
                     child: SvgPicture.asset("image/icons/signup.svg"),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(bottom:100),
+                    margin: const EdgeInsets.only(bottom: 100),
                     child: SafeArea(
-                      child:Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children:<Widget> [
+                        children: <Widget>[
                           Container(
                             width: 200.0,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>const PlayGame()
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>const PlayGame()
+                                //   ),
+                                // );
+                                Setting_PlayGame(context);
                               },
                               child: Row(
                                 children: <Widget>[
                                   const Icon(
-                                    size:50.0,
+                                    size: 50.0,
                                     Icons.play_arrow,
                                     color: Colors.white,
                                   ),
@@ -83,14 +85,26 @@ class _MobileIndexState extends State<MobileIndex> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 30.0,),
+                          const SizedBox(
+                            height: 30.0,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWellCustom(icon:const FaIcon(FontAwesomeIcons.volumeHigh),data:const LoginScreen()),
-                              InkWellCustom(icon:const FaIcon(FontAwesomeIcons.chartSimple),data:const LoginScreen()),
-                              InkWellCustom(icon:const FaIcon(FontAwesomeIcons.users),data:const LoginScreen()),
-                              InkWellCustom(icon:const FaIcon(FontAwesomeIcons.gears),data:const LoginScreen()),
+                              InkWellCustom(
+                                  icon:
+                                      const FaIcon(FontAwesomeIcons.volumeHigh),
+                                  data: const LoginScreen()),
+                              InkWellCustom(
+                                  icon: const FaIcon(
+                                      FontAwesomeIcons.chartSimple),
+                                  data: const LoginScreen()),
+                              InkWellCustom(
+                                  icon: const FaIcon(FontAwesomeIcons.users),
+                                  data: const LoginScreen()),
+                              InkWellCustom(
+                                  icon: const FaIcon(FontAwesomeIcons.gears),
+                                  data: const LoginScreen()),
                             ],
                           ),
                         ],
@@ -106,5 +120,3 @@ class _MobileIndexState extends State<MobileIndex> {
     );
   }
 }
-
-
