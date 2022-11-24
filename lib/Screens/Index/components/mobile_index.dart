@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_an/Model/main_connect_firebase.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
 import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
+import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
 import 'package:do_an/Screens/Index/components/Widget/widget_diem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +21,62 @@ class MobileIndex extends StatefulWidget {
 
 class _MobileIndexState extends State<MobileIndex> {
   final mainConnect = MainConnect();
+
+  //Setting play game show index
+  Future<dynamic> _showSetting(BuildContext context, String content) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Container(
+            color: kPrimaryColor,
+            child: Row(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
+                  title: const Text(
+                    'Cài đặt',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  trailing: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      )),
+                )
+              ],
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 6.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  VoiCustom(),
+                  SingCustom()
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
