@@ -163,7 +163,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const LoginScreen();
+                    return LoginScreen();
                   },
                 ),
               );

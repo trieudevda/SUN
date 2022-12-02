@@ -4,7 +4,6 @@ import 'package:do_an/Screens/Play/component/Widget/point_game.dart';
 import 'package:do_an/Screens/Play/component/Widget/question.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:convert';
 import '../../../constants.dart';
 import '../../Index/components/Widget/ink_well_custom.dart';
 
@@ -182,14 +181,12 @@ class _PlayGameInitState extends State<PlayGameInit> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // icon 50:50
-              InkWellCustom(
-                  data: const Index(), icon: const FaIcon(FontAwesomeIcons.amazon)),
-              InkWellCustom(
-                  data: const Index(), icon: const FaIcon(FontAwesomeIcons.amazon)),
-              InkWellCustom(
-                  data: const Index(), icon: const FaIcon(FontAwesomeIcons.repeat)),
-              InkWellCustom(
-                  data: const Index(), icon: const FaIcon(FontAwesomeIcons.lightbulb)),
+              // InkWellCustom(
+              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.amazon)),
+              // InkWellCustom(
+              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.rotate)),
+              // InkWellCustom(
+              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.lightbulb)),
             ],
           ),
         ),

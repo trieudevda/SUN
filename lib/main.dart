@@ -16,24 +16,27 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  if (FirebaseAuth.instance.currentUser != null) {
+  print('user id: ${FirebaseAuth.instance.currentUser?.uid}');
+}
   FirebaseAuth.instance
       .authStateChanges()
       .listen((User? user) {
-    // if (user == null) {
-    //   checkAuth=false;
-    //   debugPrint('Chưa đăng nhập!');
-    // } else {
-    //   // set infor user
-    //   update(user);
-    //   // get infor user
-    //   final name = user.displayName;
-    //   final email = user.email;
-    //   final photoUrl = user.photoURL;
-    //   final emailVerified = user.emailVerified;
-    //   final uid = user.uid;
-    //   checkAuth=true;
-    //   debugPrint('Đã đăng nhập!, $name,$email,$photoUrl,$emailVerified,$uid');
-    // }
+    if (user == null) {
+      checkAuth=false;
+      debugPrint('Chưa đăng nhập!');
+    } else {
+      // set infor user
+      // update(user);
+      // get infor user
+      // final name = user.displayName;
+      // final email = user.email;
+      // final photoUrl = user.photoURL;
+      // final emailVerified = user.emailVerified;
+      // final uid = user.uid;
+      checkAuth=true;
+      // debugPrint('Đã đăng nhập!, $name,$email,$photoUrl,$emailVerified,$uid');
+    }
   });
   runApp(MyApp());
 }
