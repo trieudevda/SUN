@@ -1,5 +1,6 @@
 import 'package:do_an/Model/main_connect_firebase.dart';
-import 'package:do_an/Screens/Index/components/Widget/game_statistics.dart';
+import 'package:do_an/Screens/Index/components/Widget/rating.dart';
+import 'package:do_an/Screens/Index/components/Widget/statistics.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
 import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
 import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
@@ -88,13 +89,13 @@ class _MobileIndexState extends State<MobileIndex> {
                                     FontAwesomeIcons.crown,
                                     color: Colors.white,
                                   ),
-                                  data: const Setting()),
+                                  data: const Ratings()),
                               InkWellCustom(
                                   icon: const FaIcon(
                                     FontAwesomeIcons.chartSimple,
                                     color: Colors.white,
                                   ),
-                                  data: const Statistics()),
+                                  data: const Charts()),
                               InkWellCustom(
                                   icon: const FaIcon(
                                     FontAwesomeIcons.gears,
@@ -106,7 +107,7 @@ class _MobileIndexState extends State<MobileIndex> {
                                     FontAwesomeIcons.users,
                                     color: Colors.white,
                                   ),
-                                  data: const Statistics()),
+                                  data: const Charts()),
                             ],
                           ),
                         ],
