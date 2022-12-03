@@ -1,3 +1,4 @@
+import 'package:do_an/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomChart extends StatelessWidget {
@@ -5,106 +6,71 @@ class CustomChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(5),
-      child: ListView(
-        children: const [
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.question_answer_outlined,
-              ),
-              title: Text(
-                'Câu hỏi đã được trả lời ',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('10'),
+        // padding: const EdgeInsets.all(5),
+        child: Column(
+      children: [
+        ListTile(
+            title: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Hạng',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                const Text(
+                  'Tên người chơi',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
+            // subtitle: Text(''),
+            trailing: Text('Diem')),
+      ],
+    ));
+  }
+}
+
+class Statistics extends StatefulWidget {
+  const Statistics({super.key});
+
+  @override
+  State<Statistics> createState() => _StatisticsState();
+}
+
+class _StatisticsState extends State<Statistics> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      title: Container(
+          height: MediaQuery.of(context).size.height / 10.0,
+          color: kPrimaryColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.bar_chart_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                'Số liệu thống kê',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              )
+            ],
+          )),
+      content: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [CustomChart()],
           ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.done,
-              ),
-              title: Text(
-                'Câu trả lời đúng ',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('2'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.clear,
-              ),
-              title: Text(
-                'Câu trả lời sai ',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('2'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.abc,
-              ),
-              title: Text(
-                'Tỉ lệ chính xác ',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('10%'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.numbers_outlined,
-              ),
-              title: Text(
-                'Đạt lv5 trong trò chơi',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text(''),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.abc,
-              ),
-              title: Text(
-                'Chiến thắng trò chơi',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('1'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.abc,
-              ),
-              title: Text(
-                'Tỉ lệ chiến thắng',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('20%'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.monetization_on_outlined,
-              ),
-              title: Text(
-                'Tiền kiếm được',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text('250 xu'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
