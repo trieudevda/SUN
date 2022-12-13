@@ -1,7 +1,9 @@
 import 'package:do_an/Model/main_connect_firebase.dart';
-import 'package:do_an/Screens/Index/components/Widget/game_statistics.dart';
+import 'package:do_an/Screens/Index/components/Widget/rating.dart';
+import 'package:do_an/Screens/Index/components/Widget/statistics.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
 import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
+import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
 import 'package:do_an/Screens/Index/components/Widget/widget_diem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,64 +19,6 @@ class MobileIndex extends StatefulWidget {
 
 class _MobileIndexState extends State<MobileIndex> {
   final mainConnect = MainConnect();
-  //Setting play game show index
-
-
-
-  //Game statistics show index
-  Future<dynamic> _showStatistics(BuildContext context, String content) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: Container(
-            // color: kPrimaryColor,
-            child: Row(
-              children: [
-                ListTile(
-                  leading: const Icon(
-                    Icons.bar_chart_outlined,
-                    color: Colors.purple,
-                  ),
-                  title: const Text(
-                    'Số liệu thống kê',
-                    style: TextStyle(
-                        color: Colors.purple,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  trailing: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      )),
-                )
-              ],
-            ),
-          ),
-          content: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  CustomChart(),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,22 +84,30 @@ class _MobileIndexState extends State<MobileIndex> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-
                               InkWellCustom(
-                                  icon: const FaIcon(FontAwesomeIcons.gears),
-                                  data: Container()),
-                              // InkWellCustom(
-                              //     icon: const FaIcon(
-                              //         FontAwesomeIcons.chartSimple),
-                              //     data:  _showSetting(context)),
-                              // InkWellCustom(
-                              //     icon:
-                              //     const FaIcon(FontAwesomeIcons.crown),
-                              //     data:  _showSetting(context)),
-                              // InkWellCustom(
-                              //     icon: const FaIcon(FontAwesomeIcons.users),
-                              //     data:  _showSetting(context)),
-
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.crown,
+                                    color: Colors.white,
+                                  ),
+                                  data: const Ratings()),
+                              InkWellCustom(
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.chartSimple,
+                                    color: Colors.white,
+                                  ),
+                                  data: const Charts()),
+                              InkWellCustom(
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.gears,
+                                    color: Colors.white,
+                                  ),
+                                  data: const Setting()),
+                              InkWellCustom(
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.users,
+                                    color: Colors.white,
+                                  ),
+                                  data: const Charts()),
                             ],
                           ),
                         ],

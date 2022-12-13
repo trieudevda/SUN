@@ -33,7 +33,7 @@ class _VoiCustomState extends State<VoiCustom> {
           leading: const Icon(Icons.volume_up_sharp),
           title: const Text(
             'Âm thanh',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
           // subtitle: Text(''),
           trailing: customNote(voice, onChangeNote)),
@@ -63,10 +63,54 @@ class _SingCustomState extends State<SingCustom> {
           leading: const Icon(Icons.volume_up_outlined),
           title: const Text(
             'Âm nhạc',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
           // subtitle: Text(''),
           trailing: customNote(sing, onChangeNote)),
+    );
+  }
+}
+
+class Setting extends StatefulWidget {
+  const Setting({super.key});
+
+  @override
+  State<Setting> createState() => _SettingState();
+}
+
+class _SettingState extends State<Setting> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      title: Container(
+          height: MediaQuery.of(context).size.height / 10.0,
+          color: kPrimaryColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              Text(
+                'Cài đặt',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              )
+            ],
+          )),
+      content: SingleChildScrollView(
+        child: Container(
+          // height: MediaQuery.of(context).size.height / 6.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [VoiCustom(), SingCustom()],
+          ),
+        ),
+      ),
     );
   }
 }
