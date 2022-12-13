@@ -53,16 +53,29 @@ class MainConnect{
       ),
     );
   }
+  // get id user
+  String getIdUser() {
+    final user = FirebaseAuth.instance.currentUser;
+    if(user == null){
+      debugPrint("User not found");
+      return "";
+    }
+    else{
+      return user.uid;
+    }
+  }
   // get user
   // set user
   //update user
   // delete user
   // get data
   // mainConnect.setDataFromFirebase('user',{"sdddd": "Ls Angeles","state": "CA","dddd": "dsdcxcxcxcxs"});
-  Future<dynamic> getDataFromFirebase(final collectionData) async{
+  static Future<dynamic> getDataFromFirebase(final collectionData) async{
+    List docs=[];
     await FirebaseFirestore.instance.collection(collectionData).get()
         .then((event) {
-            for (var doc in event.docs) {
+            for (var doc in event.docs.toList()) {
+              // Map data={
               debugPrint("${doc.id} => ${doc.data()}");
               // doc.data().forEach((key, value) {debugPrint("$key:$value");});
             }
@@ -73,7 +86,7 @@ class MainConnect{
         });
   }
   // set data
-  Future<dynamic> setDataFromFirebase(final collectionData, final jsonData) async {
+  static Future<dynamic> setDataFromFirebase(final collectionData, final jsonData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .add(jsonData)
@@ -81,7 +94,7 @@ class MainConnect{
         .catchError((e){debugPrint('them that bai');});
   }
   // update data
-  Future<dynamic> updateDataFromFirebase(final collectionData,final documentData, final jsonData) async {
+  static Future<dynamic> updateDataFromFirebase(final collectionData,final documentData, final jsonData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .doc(documentData)
@@ -90,7 +103,7 @@ class MainConnect{
         .catchError((e){debugPrint('cap nhat that bai');});
   }
   // delete data
-  Future<dynamic> deleteDataFromFirebase(final collectionData,final documentData) async {
+  static Future<dynamic> deleteDataFromFirebase(final collectionData,final documentData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .doc(documentData)
