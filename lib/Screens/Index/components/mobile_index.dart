@@ -1,13 +1,15 @@
+import 'package:do_an/Model/customer.dart';
 import 'package:do_an/Model/main_connect_firebase.dart';
 import 'package:do_an/Screens/Index/components/Widget/rating.dart';
 import 'package:do_an/Screens/Index/components/Widget/statistics.dart';
 import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
-import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
 import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
 import 'package:do_an/Screens/Index/components/Widget/widget_diem.dart';
+import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../components/function_custom.dart';
 import '../../../constants.dart';
 
 class MobileIndex extends StatefulWidget {
@@ -19,7 +21,7 @@ class MobileIndex extends StatefulWidget {
 
 class _MobileIndexState extends State<MobileIndex> {
   final mainConnect = MainConnect();
-
+  final customer = Customer();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +36,7 @@ class _MobileIndexState extends State<MobileIndex> {
                 IconButton(
                   iconSize: 30,
                   onPressed: () {
-                    mainConnect.logoutFirebase(context);
+                    logoutGame(context);
                   },
                   icon: const Icon(Icons.logout),
                 ),
@@ -63,6 +65,11 @@ class _MobileIndexState extends State<MobileIndex> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Setting_PlayGame(context);
+                                // final data={'ten':'trieu','tuoi':'17','check':['1',
+                                //   {
+                                //       '2': ['12', '123']
+                                //     }, '3', '4', '5']};
+                                // customer.write('customer', data);
                               },
                               child: Row(
                                 children: <Widget>[

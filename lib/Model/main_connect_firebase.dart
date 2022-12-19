@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Screens/Index/index_screen.dart';
 import '../Screens/Welcome/welcome_screen.dart';
+import '../Screens/Index/index_screen.dart';
 class MainConnect{
   final inforUser;
   final jsonData;
@@ -31,7 +31,7 @@ class MainConnect{
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Index()
+            builder: (context) => IndexCustom()
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -45,7 +45,6 @@ class MainConnect{
   //logout
   Future<void> logoutFirebase(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    debugPrint('logged out access to Firebase');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -70,20 +69,22 @@ class MainConnect{
   // delete user
   // get data
   // mainConnect.setDataFromFirebase('user',{"sdddd": "Ls Angeles","state": "CA","dddd": "dsdcxcxcxcxs"});
-  static Future<dynamic> getDataFromFirebase(final collectionData) async{
+  static Future<List<dynamic>> getDataFromFirebase(final collectionData) async{
     List docs=[];
     await FirebaseFirestore.instance.collection(collectionData).get()
         .then((event) {
-            for (var doc in event.docs.toList()) {
-              // Map data={
-              debugPrint("${doc.id} => ${doc.data()}");
+            for (var doc in event.docs) {
+              docs.add(doc.data());
+              // debugPrint("${doc.id} => ${doc.data()}");
               // doc.data().forEach((key, value) {debugPrint("$key:$value");});
             }
-            return event;
+            debugPrint("${docs.runtimeType}");
+            return docs;
           })
         .catchError((error){
          debugPrint(error);
         });
+    return docs;
   }
   // set data
   static Future<dynamic> setDataFromFirebase(final collectionData, final jsonData) async {

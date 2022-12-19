@@ -8,10 +8,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Background(
+     return const Background(
         child:MobileLoginScreen(),
       );
-
   }
 }
 

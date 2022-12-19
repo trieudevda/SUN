@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
       ),
-      home: checkAuth?const Index():const WelcomeScreen(),
+      home: checkAuth?const IndexCustom():const WelcomeScreen(),
     );
   }
 }

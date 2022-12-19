@@ -1,11 +1,13 @@
-import 'package:do_an/Model/Question.dart';
-import 'package:do_an/Screens/Index/index_screen.dart';
 import 'package:do_an/Screens/Play/component/Widget/point_game.dart';
 import 'package:do_an/Screens/Play/component/Widget/question.dart';
+import 'package:do_an/Screens/Result/result_game.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../Model/question.dart';
+import '../../../components/function_custom.dart';
 import '../../../constants.dart';
 import '../../Index/components/Widget/ink_well_custom.dart';
+import '../../Index/index_screen.dart';
 
 class MobilePlayGame extends StatelessWidget {
   const MobilePlayGame({Key? key}) : super(key: key);
@@ -18,13 +20,6 @@ class MobilePlayGame extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color(0x44000000),
           elevation: 0,
-          // leading: Container(alignment:Alignment.center ,child:const FaIcon(FontAwesomeIcons.circleChevronLeft)),
-          // actions: [
-          //   Container(
-          //       alignment:Alignment.centerLeft ,
-          //       child:const FaIcon(FontAwesomeIcons.circleDollarToSlot)
-          //   ),
-          // ],
         ),
         body: Container(
           width: double.infinity,
@@ -49,26 +44,41 @@ class PlayGameInit extends StatefulWidget {
 class _PlayGameInitState extends State<PlayGameInit> {
   int _currentIndex = 0;
   int _minutes = 1;
+  int _point=0;
+  int _exp=0;
+  int _numberOfAnswers=0;
+
 
   @override
   Widget build(BuildContext context) {
     final question =data[_currentIndex];
     void checkQuestion(){
-      if(_currentIndex<(data.length-1)){
-        setState(() {
-          _currentIndex++;
-        });
+      if(_currentIndex<=(data.length-1) && question.status=="true"){
+        AlertDialog alert = AlertDialog(
+          content: const Text('Bạn đã trả lời đúng!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: (){
+                  setState(() {
+                    _currentIndex++;
+                  });
+                },
+                child: const Text('Tiếp tục'),
+              ),
+            ],
+        );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
       }
       else{
-          AlertDialog alert = const AlertDialog(
-            content: Text('da het'),
-          );
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return alert;
-            },
-          );
+        WillPopScope(
+          onWillPop: onWillPop,
+          child: showMessageEndGame(context,'Chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers) as Widget,
+        );
       }
     }
     return Column(
@@ -83,7 +93,7 @@ class _PlayGameInitState extends State<PlayGameInit> {
               duration: Duration(minutes: _minutes),
               tween: Tween(begin: Duration(minutes: _minutes), end: Duration.zero),
               onEnd: () {
-                print('Timer ended');
+                showMessageEndGame(context,'Thời gian đã hết, chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers);
               },
               builder: (BuildContext context, Duration value, Widget? child) {
                 final minutes = value.inMinutes;
@@ -105,8 +115,8 @@ class _PlayGameInitState extends State<PlayGameInit> {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              QuestionGame(text: question.title),
-              PointGame(point: question.point),
+              QuestionGame(text: question.title.toString()),
+              PointGame(point: question.point!=null ? question.point!.toInt() : 0),
             ],
           ),
         ),
@@ -117,7 +127,7 @@ class _PlayGameInitState extends State<PlayGameInit> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              ...question.id_answer.map(
+              ...question.idAnswer.map(
                 (e)=>Stack(
                     alignment: Alignment.center,
                     children: <Widget>[
@@ -130,12 +140,7 @@ class _PlayGameInitState extends State<PlayGameInit> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(30.0),
                           onTap: () {
-                            if(true){
-                              setState(() {
-                                _minutes=1;
                                 checkQuestion();
-                              });
-                            }
                           },
                           child: Ink(
                             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top:10.0, bottom:10.0),
@@ -181,12 +186,12 @@ class _PlayGameInitState extends State<PlayGameInit> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // icon 50:50
-              // InkWellCustom(
-              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.amazon)),
-              // InkWellCustom(
-              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.rotate)),
-              // InkWellCustom(
-              //     data: const Index(), icon: const FaIcon(FontAwesomeIcons.lightbulb)),
+              InkWellCustom(
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.amazon)),
+              InkWellCustom(
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.rotate)),
+              InkWellCustom(
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.lightbulb)),
             ],
           ),
         ),
