@@ -22,7 +22,7 @@ class MobileIndex extends StatefulWidget {
 class _MobileIndexState extends State<MobileIndex> {
   final mainConnect = MainConnect();
   final customer = Customer();
-  String dataCustomer=Customer().read().toString();
+  String dataCustomer = Customer().read().toString();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -53,7 +53,9 @@ class _MobileIndexState extends State<MobileIndex> {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.only(top: 100),
-                    child: SvgPicture.asset("image/icons/signup.svg"),
+                    child:
+                        // SvgPicture.asset("image/icons/signup.svg"),
+                        Image.asset('image/gifs/sanh.gif'),
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 100),

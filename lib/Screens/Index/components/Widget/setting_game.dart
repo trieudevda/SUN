@@ -1,6 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:do_an/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Widget customNote(bool val, Function onChangeMethod) {
   return CupertinoSwitch(
@@ -19,6 +21,7 @@ class VoiCustom extends StatefulWidget {
 }
 
 class _VoiCustomState extends State<VoiCustom> {
+  final player = AudioPlayer();
   bool voice = true;
   onChangeNote(bool value) {
     setState(() {
@@ -27,17 +30,43 @@ class _VoiCustomState extends State<VoiCustom> {
   }
 
   @override
+  _saveVoice() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("voice", voice);
+  }
+
+  @override
+  void checkVoi(bool voice) {
+    if (voice == true) {
+      setState(() {
+        player.play(AssetSource('button1.mp3'));
+      });
+    } else {
+      setState(() {
+        player.stop();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListTile(
-          leading: const Icon(Icons.volume_up_sharp),
-          title: const Text(
-            'Âm thanh',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-          // subtitle: Text(''),
-          trailing: customNote(voice, onChangeNote)),
-    );
+        child: ListTile(
+      leading: const Icon(Icons.volume_up_sharp),
+      title: const Text(
+        'Âm thanh',
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      ),
+      // subtitle: Text(''),
+      trailing: CupertinoSwitch(
+          activeColor: kPrimaryColor,
+          value: voice,
+          onChanged: (newValue) {
+            onChangeNote(newValue);
+            checkVoi(voice);
+            _saveVoice();
+          }),
+    ));
   }
 }
 
