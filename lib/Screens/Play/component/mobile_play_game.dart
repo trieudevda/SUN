@@ -75,10 +75,7 @@ class _PlayGameInitState extends State<PlayGameInit> {
         );
       }
       else{
-        WillPopScope(
-          onWillPop: onWillPop,
-          child: showMessageEndGame(context,'Chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers) as Widget,
-        );
+        showMessageEndGame1(context,'Chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers);
       }
     }
     return Column(

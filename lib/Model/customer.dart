@@ -36,9 +36,9 @@ class Customer{
     'status':status,
   };
   //
-  Future<dynamic> read(String collectionData) async{
-    List<dynamic> data= await MainConnect.getDataFromFirebase(collectionData);
-    json.decode(data.toString()).forEach((e){debugPrint(e);});
+  Future<dynamic> read() async{
+    final data= await MainConnect.getUser();
+    return data;
   }
   Future<void> write(String collectionData, Map<String,dynamic> jsonData) async{
     await MainConnect.setDataFromFirebase(collectionData, jsonData);

@@ -50,6 +50,30 @@ Future<dynamic> showMessageEndGame(BuildContext context,String text,int point,in
     },
   );
 }
+Future<void> showMessageEndGame1(BuildContext context,String text,int point,int exp,int numberOfAnswers){
+ return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Text(text),
+        actions: <Widget>[
+          TextButton(
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ResultGame(point: point,exp: exp,numberOfAnswers: numberOfAnswers,)
+                ),
+              );
+            },
+            child: const Text('Chấp nhận'),
+          ),
+        ],
+      );
+    },
+  );
+}
 Future<dynamic> logoutGame(BuildContext context)async{
   return await showDialog(
     // barrierDismissible: false,

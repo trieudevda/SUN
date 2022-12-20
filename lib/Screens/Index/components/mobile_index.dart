@@ -22,6 +22,7 @@ class MobileIndex extends StatefulWidget {
 class _MobileIndexState extends State<MobileIndex> {
   final mainConnect = MainConnect();
   final customer = Customer();
+  String dataCustomer=Customer().read().toString();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -64,12 +65,8 @@ class _MobileIndexState extends State<MobileIndex> {
                             width: 200.0,
                             child: ElevatedButton(
                               onPressed: () {
-                                Setting_PlayGame(context);
-                                // final data={'ten':'trieu','tuoi':'17','check':['1',
-                                //   {
-                                //       '2': ['12', '123']
-                                //     }, '3', '4', '5']};
-                                // customer.write('customer', data);
+                                Customer().read();
+                                // Setting_PlayGame(context);
                               },
                               child: Row(
                                 children: <Widget>[

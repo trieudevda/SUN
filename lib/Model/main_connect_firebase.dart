@@ -64,6 +64,16 @@ class MainConnect{
     }
   }
   // get user
+  static Future<dynamic> getUser()async{
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final data={"name":user.displayName,"email":user.email,"photoUrl":user.photoURL,"emailVerified":user.emailVerified,'uid':user.uid,};
+      return data;
+    }
+    else{
+      return false;
+    }
+  }
   // set user
   //update user
   // delete user
