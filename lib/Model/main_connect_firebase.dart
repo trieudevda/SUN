@@ -2,26 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Screens/Index/index_screen.dart';
 import '../Screens/Welcome/welcome_screen.dart';
+import '../Screens/Index/index_screen.dart';
 class MainConnect{
   final inforUser;
   final jsonData;
   final collectionData;
   final documentData;
   MainConnect({this.inforUser,this.jsonData,this.collectionData,this.documentData});
-
+  // 'timestamp': FieldValue.serverTimestamp()
+  // check login
+  void checkAuth(BuildContext context,Widget data){
+    final user = FirebaseAuth.instance.currentUser;
+    if(user == null){
+      Navigator.pop(context);
+    }
+    else{
+      data;
+    }
+  }
   // login
   Future<void> signInEmail(String email,String password,BuildContext context) async {
     try {
-      // await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Index()
+            builder: (context) => IndexCustom()
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -35,7 +45,6 @@ class MainConnect{
   //logout
   Future<void> logoutFirebase(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    debugPrint('logged out access to Firebase');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -43,27 +52,52 @@ class MainConnect{
       ),
     );
   }
+  // get id user
+  String getIdUser() {
+    final user = FirebaseAuth.instance.currentUser;
+    if(user == null){
+      debugPrint("User not found");
+      return "";
+    }
+    else{
+      return user.uid;
+    }
+  }
   // get user
+  static Future<dynamic> getUser()async{
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final data={"name":user.displayName,"email":user.email,"photoUrl":user.photoURL,"emailVerified":user.emailVerified,'uid':user.uid,};
+      return data;
+    }
+    else{
+      return false;
+    }
+  }
   // set user
   //update user
   // delete user
   // get data
   // mainConnect.setDataFromFirebase('user',{"sdddd": "Ls Angeles","state": "CA","dddd": "dsdcxcxcxcxs"});
-  Future<dynamic> getDataFromFirebase(final collectionData) async{
+  static Future<List<dynamic>> getDataFromFirebase(final collectionData) async{
+    List docs=[];
     await FirebaseFirestore.instance.collection(collectionData).get()
         .then((event) {
             for (var doc in event.docs) {
-              debugPrint("${doc.id} => ${doc.data()}");
+              docs.add(doc.data());
+              // debugPrint("${doc.id} => ${doc.data()}");
               // doc.data().forEach((key, value) {debugPrint("$key:$value");});
             }
-            return event;
+            debugPrint("${docs.runtimeType}");
+            return docs;
           })
         .catchError((error){
          debugPrint(error);
         });
+    return docs;
   }
   // set data
-  Future<dynamic> setDataFromFirebase(final collectionData, final jsonData) async {
+  static Future<dynamic> setDataFromFirebase(final collectionData, final jsonData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .add(jsonData)
@@ -71,7 +105,7 @@ class MainConnect{
         .catchError((e){debugPrint('them that bai');});
   }
   // update data
-  Future<dynamic> updateDataFromFirebase(final collectionData,final documentData, final jsonData) async {
+  static Future<dynamic> updateDataFromFirebase(final collectionData,final documentData, final jsonData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .doc(documentData)
@@ -80,7 +114,7 @@ class MainConnect{
         .catchError((e){debugPrint('cap nhat that bai');});
   }
   // delete data
-  Future<dynamic> deleteDataFromFirebase(final collectionData,final documentData) async {
+  static Future<dynamic> deleteDataFromFirebase(final collectionData,final documentData) async {
     await FirebaseFirestore.instance
         .collection(collectionData)
         .doc(documentData)

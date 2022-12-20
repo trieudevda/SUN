@@ -1,18 +1,16 @@
-
 import 'package:flutter/material.dart';
-
 import '../../components/background.dart';
 import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Background(
+     return const Background(
         child:MobileLoginScreen(),
-    );
+      );
   }
 }
 

@@ -1,14 +1,13 @@
-import 'package:do_an/Model/Question.dart';
-import 'package:do_an/Screens/Index/index_screen.dart';
-import 'package:do_an/Screens/Play/component/Widget/answer_game.dart';
 import 'package:do_an/Screens/Play/component/Widget/point_game.dart';
 import 'package:do_an/Screens/Play/component/Widget/question.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:do_an/Screens/Result/result_game.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../../../Model/question.dart';
+import '../../../components/function_custom.dart';
 import '../../../constants.dart';
 import '../../Index/components/Widget/ink_well_custom.dart';
+import '../../Index/index_screen.dart';
 
 class MobilePlayGame extends StatelessWidget {
   const MobilePlayGame({Key? key}) : super(key: key);
@@ -21,13 +20,6 @@ class MobilePlayGame extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color(0x44000000),
           elevation: 0,
-          // leading: Container(alignment:Alignment.center ,child:const FaIcon(FontAwesomeIcons.circleChevronLeft)),
-          // actions: [
-          //   Container(
-          //       alignment:Alignment.centerLeft ,
-          //       child:const FaIcon(FontAwesomeIcons.circleDollarToSlot)
-          //   ),
-          // ],
         ),
         body: Container(
           width: double.infinity,
@@ -49,130 +41,129 @@ class PlayGameInit extends StatefulWidget {
   State<PlayGameInit> createState() => _PlayGameInitState();
 }
 
-// class _PlayGameInitState extends State<PlayGameInit> {
-//   String data =
-//       'Con chó đen người ta gọi là con chó mực. Con chó vàng, người ta gọi là con chó phèn. Con chó sanh người ta gọi là con chó đẻ. Vậy con chó đỏ, người ta gọi là con chó gì?';
-//   int point = 200;
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: <Widget>[
-//         const SizedBox(height: defaultPadding),
-//         const Text(
-//           'dong ho',
-//           style: TextStyle(color: Colors.white),
-//         ),
-//         Container(
-//           width: double.infinity,
-//           child: Stack(
-//             alignment: Alignment.center,
-//             children: <Widget>[
-//               QuestionGame(text: data),
-//               PointGame(point: point),
-//             ],
-//           ),
-//         ),
-//         const SizedBox(height: 25.0),
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: <Widget>[
-//             AnswerGame(
-//               text: '12 tháng',
-//               check: true,
-//             ),
-//             AnswerGame(
-//               text: 'Chuột Míckey',
-//               check: false,
-//             ),
-//             AnswerGame(
-//               text: 'Con người',
-//               check: false,
-//             ),
-//             AnswerGame(
-//               text: 'Vịt không bị què thì đi bằng 2 chân',
-//               check: false,
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: defaultPadding),
-//         Container(
-//           decoration: const BoxDecoration(
-//               border: Border(
-//                 top: BorderSide(color: Colors.greenAccent, width: 5),
-//               ),
-//               gradient: LinearGradient(
-//                 begin: Alignment.topRight,
-//                 end: Alignment.bottomLeft,
-//                 colors: [
-//                   Colors.blue,
-//                   Colors.red,
-//                 ],
-//               )),
-//           height: 90,
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//               // icon 50:50
-//               InkWellCustom(
-//                   data: Index(), icon: FaIcon(FontAwesomeIcons.amazon)),
-//               InkWellCustom(
-//                   data: Index(), icon: FaIcon(FontAwesomeIcons.repeat)),
-//               InkWellCustom(
-//                   data: Index(), icon: FaIcon(FontAwesomeIcons.lightbulb)),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
 class _PlayGameInitState extends State<PlayGameInit> {
   int _currentIndex = 0;
-  final Map<int,dynamic> _answers={};
+  int _minutes = 1;
+  int _point=0;
+  int _exp=0;
+  int _numberOfAnswers=0;
+
+
   @override
   Widget build(BuildContext context) {
     final question =data[_currentIndex];
+    void checkQuestion(){
+      if(_currentIndex<=(data.length-1) && question.status=="true"){
+        AlertDialog alert = AlertDialog(
+          content: const Text('Bạn đã trả lời đúng!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: (){
+                  setState(() {
+                    _currentIndex++;
+                  });
+                },
+                child: const Text('Tiếp tục'),
+              ),
+            ],
+        );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+      }
+      else{
+        showMessageEndGame1(context,'Chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers);
+      }
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         const SizedBox(height: defaultPadding),
-        const Text(
-          'dong ho',
-          style: TextStyle(color: Colors.white),
+        // đang chỉnh
+        Container(
+          width: double.infinity,
+          height:MediaQuery.of(context).size.height*(5/100),
+          child: TweenAnimationBuilder<Duration>(
+              duration: Duration(minutes: _minutes),
+              tween: Tween(begin: Duration(minutes: _minutes), end: Duration.zero),
+              onEnd: () {
+                showMessageEndGame(context,'Thời gian đã hết, chúc bạn may mắn lần sau!',_point,_exp,_numberOfAnswers);
+              },
+              builder: (BuildContext context, Duration value, Widget? child) {
+                final minutes = value.inMinutes;
+                final seconds = value.inSeconds % 60;
+                return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text('Thời gian: $minutes-$seconds',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)));
+              }
+          ),
         ),
         Container(
           width: double.infinity,
+          height:MediaQuery.of(context).size.height*(20/100),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              QuestionGame(text: question.title),
-              PointGame(point: question.point),
+              QuestionGame(text: question.title.toString()),
+              PointGame(point: question.point!=null ? question.point!.toInt() : 0),
             ],
           ),
         ),
-        const SizedBox(height: 25.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            ...question.id_answer.map(
-              (e)=>AnswerGame(
-                text: e,
-                check: true,
+        const SizedBox(height: 24.0),
+        Container(
+          height:MediaQuery.of(context).size.height*(50/100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ...question.idAnswer.map(
+                (e)=>Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      const Divider(
+                        thickness: 5,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(30.0),
+                          onTap: () {
+                                checkQuestion();
+                          },
+                          child: Ink(
+                            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top:10.0, bottom:10.0),
+                            child: Container(
+                              height: 80.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color:const Color.fromRGBO(134, 0, 179, 1),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              child:Text(
+                                e,
+                                style:const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+                    ],
+                  ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        ElevatedButton(onPressed: (){ setState(() {
-          _currentIndex++;
-        });}, child: Text('nhan')),
         const SizedBox(height: defaultPadding),
         Container(
           decoration: const BoxDecoration(
@@ -187,17 +178,17 @@ class _PlayGameInitState extends State<PlayGameInit> {
                   Colors.red,
                 ],
               )),
-          height: 90,
+          height: MediaQuery.of(context).size.height*(10/100),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // icon 50:50
               InkWellCustom(
-                  data: Index(), icon: FaIcon(FontAwesomeIcons.amazon)),
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.amazon)),
               InkWellCustom(
-                  data: Index(), icon: FaIcon(FontAwesomeIcons.repeat)),
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.rotate)),
               InkWellCustom(
-                  data: Index(), icon: FaIcon(FontAwesomeIcons.lightbulb)),
+                  data: const IndexCustom(), icon: const FaIcon(FontAwesomeIcons.lightbulb)),
             ],
           ),
         ),

@@ -15,7 +15,7 @@ class QuestionGame extends StatelessWidget {
           ),
           child: Container(
             width: double.infinity,
-            padding:const EdgeInsets.only(left:15.0,right:15.0,top:50.0,bottom:30.0),
+            padding:const EdgeInsets.only(left:15.0,right:15.0,top:30.0,bottom:10.0),
             decoration:const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.greenAccent, width: 5),
@@ -30,7 +30,7 @@ class QuestionGame extends StatelessWidget {
                   ],
                 )
             ),
-            child:Text(text, style:const TextStyle(color: Colors.white,fontSize: 18.0,),
+            child:Text(text, style:const TextStyle(color: Colors.white,fontSize: 16.0,),
             ),
           ),
         ),

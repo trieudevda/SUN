@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InkWellCustom extends StatefulWidget {
-  InkWellCustom({Key? key,required this.text,required this.check}) : super(key: key);
+  InkWellCustom({Key? key,required this.text,required this.check,required this.current}) : super(key: key);
   String text;
   bool check;
+  int current;
 
   @override
   State<InkWellCustom> createState() => _InkWellCustomState();
@@ -16,15 +17,18 @@ class _InkWellCustomState extends State<InkWellCustom> {
       borderRadius: BorderRadius.circular(30.0),
       onTap: () {
         if(widget.check){
-          AlertDialog alert = AlertDialog(
-            content: Text(widget.check.toString()),
-          );
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return alert;
-            },
-          );
+          // AlertDialog alert = AlertDialog(
+          //   content: Text(widget.check.toString()),
+          // );
+          // showDialog(
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return alert;
+          //   },
+          // );
+          setState(() {
+            widget.current++;
+          });
         }
       },
       child: Ink(
@@ -34,11 +38,11 @@ class _InkWellCustomState extends State<InkWellCustom> {
             borderRadius: BorderRadius.circular(10.0),
             color:const Color.fromRGBO(134, 0, 179, 1),
           ),
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child:Text(
             widget.text,
             style:const TextStyle(
-              fontSize: 20,
+              fontSize: 16,
             ),
           ),
         ),

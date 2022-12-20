@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../components/background.dart';
+import '../../components/function_custom.dart';
 import 'components/login_signup_btn.dart';
 import 'components/welcome_image.dart';
 
@@ -9,9 +10,12 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Background(
-      child: SafeArea(
-        child: MobileWelcomeScreen(),
+    return const WillPopScope(
+      onWillPop: onWillPop,
+      child: Background(
+        child: SafeArea(
+          child: MobileWelcomeScreen(),
+        ),
       ),
     );
   }

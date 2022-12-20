@@ -13,14 +13,14 @@ class PointGame extends StatelessWidget {
           child: Ink(
             padding: const EdgeInsets.all(10),
             child: Container(
-              padding: const EdgeInsets.only(left: 80.0,right: 80.0,top: 15.0,bottom: 15.0,),
+              padding: const EdgeInsets.only(left: 80.0,right: 80.0,top: 10.0,bottom: 10.0,),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color:const Color.fromRGBO(134, 0, 179, 1),
               ),
               child: Text(
                   point.toString(),
-                  style:const TextStyle(fontSize:24.0)),
+                  style:const TextStyle(fontSize:20.0)),
             ),
           ),
         )
