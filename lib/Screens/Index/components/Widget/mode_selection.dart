@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:do_an/Screens/Play/play_game.dart';
 import 'package:do_an/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class CustomSing extends StatefulWidget {
 }
 
 class _CustomSingState extends State<CustomSing> {
+  final player = AudioPlayer();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +22,7 @@ class _CustomSingState extends State<CustomSing> {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)))),
           onPressed: () {
+            player.play(AssetSource('button1.mp3'));
             Navigator.push(context,
                 MaterialPageRoute(builder: ((context) => const PlayGame())));
           },
@@ -39,6 +42,7 @@ class CustomSolo extends StatefulWidget {
 }
 
 class _CustomSoloState extends State<CustomSolo> {
+  final player = AudioPlayer();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,6 +53,7 @@ class _CustomSoloState extends State<CustomSolo> {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)))),
           onPressed: () {
+            player.play(AssetSource('button1.mp3'));
             // Navigator.push(
             //     context, MaterialPageRoute(builder: ((context) => PlayGame())));
             Navigator.pop(context);

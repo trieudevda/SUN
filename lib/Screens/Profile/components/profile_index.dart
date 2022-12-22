@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -70,66 +71,91 @@ class _ProfileInitState extends State<ProfileInit> {
 
   @override
   Widget build(BuildContext context) {
+    final player = AudioPlayer();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-            onTap: () {},
-            child: const CircleAvatar(
-              backgroundColor: Colors.purple,
-              maxRadius: 60.0,
-              child: CircleAvatar(
-                radius: 55.0,
-                backgroundImage: AssetImage(''),
+        Container(
+          height: MediaQuery.of(context).size.height * 2 / 3,
+          margin: const EdgeInsets.fromLTRB(50, 100, 50, 40),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.purple, width: 4.0),
+              borderRadius: const BorderRadius.all(Radius.circular(30))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                  onTap: () {},
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.purple,
+                    maxRadius: 60.0,
+                    child: Icon(
+                      Icons.account_circle_rounded,
+                      size: 120,
+                    ),
+                  )),
+              const SizedBox(
+                height: 20.0,
               ),
-            )),
-        const SizedBox(
-          height: 20.0,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Tên: ' + fullName!,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Demo'),
+                              );
+                            });
+                      },
+                      icon: Icon(Icons.edit))
+                ],
+              ),
+              // const SizedBox(
+              //   height: 20.0,
+              // ),
+              Text(
+                'Cấp: ' + level!,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Email: ' + email!,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'SĐT: ' + phone!,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ],
+          ),
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Tên: ' + fullName!,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            ),
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Demo'),
-                        );
-                      });
-                },
-                icon: Icon(Icons.edit))
-          ],
-        ),
-        // const SizedBox(
-        //   height: 20.0,
-        // ),
-        Text(
-          'Cấp: ' + level!,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          'Email: ' + email!,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          'SĐT: ' + phone!,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        ElevatedButton(onPressed: () {}, child: Text('Lich su'))
+        Expanded(
+            child: Container(
+                margin: const EdgeInsets.fromLTRB(50, 25, 50, 25),
+                child: ElevatedButton(
+                    onPressed: () {
+                      player.play(AssetSource('button1.mp3'));
+                    },
+                    child: Text('Lịch sử đấu'.toUpperCase()))))
       ],
     );
   }

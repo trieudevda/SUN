@@ -20,9 +20,11 @@ class VoiCustom extends StatefulWidget {
   State<VoiCustom> createState() => _VoiCustomState();
 }
 
+bool voice = true;
+
 class _VoiCustomState extends State<VoiCustom> {
   final player = AudioPlayer();
-  bool voice = true;
+
   onChangeNote(bool value) {
     setState(() {
       voice = value;

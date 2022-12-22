@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:do_an/Model/customer.dart';
 import 'package:do_an/Model/main_connect_firebase.dart';
 import 'package:do_an/Screens/Index/components/Widget/rating.dart';
@@ -22,6 +23,7 @@ class MobileIndex extends StatefulWidget {
 }
 
 class _MobileIndexState extends State<MobileIndex> {
+  final player = AudioPlayer();
   final mainConnect = MainConnect();
   final customer = Customer();
   String dataCustomer = Customer().read().toString();
@@ -69,6 +71,7 @@ class _MobileIndexState extends State<MobileIndex> {
                             width: 200.0,
                             child: ElevatedButton(
                               onPressed: () {
+                                player.play(AssetSource('button1.mp3'));
                                 Customer().read();
                                 // Setting_PlayGame(context);
                               },
