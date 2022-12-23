@@ -81,7 +81,7 @@ flutter:
     - image/images/main_top.png
     - image/images/signup_top.png
     - image/images/Hinh-nen-Vu-Tru.jpg
-
+    - image/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
