@@ -13,7 +13,7 @@ class ProfilePic extends StatelessWidget {
       width: 115,
       child: Stack(fit: StackFit.expand, clipBehavior: Clip.none, children: [
         CircleAvatar(
-          backgroundImage: AssetImage("assets/images/Profile Image.png"),
+          backgroundImage: AssetImage("image/images/Profile Image.png"),
         ),
       ]),
     );
