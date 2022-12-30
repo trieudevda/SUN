@@ -6,6 +6,9 @@ import 'package:do_an/Screens/Index/components/Widget/ink_well_custom.dart';
 import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
 import 'package:do_an/Screens/Index/components/Widget/widget_diem.dart';
 import 'package:do_an/Screens/Index/components/Widget/mode_selection.dart';
+import 'package:do_an/Screens/Profile/profile_menu.dart';
+import 'package:do_an/Screens/Profile/profile_pic.dart';
+import 'package:do_an/Screens/Profile/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -114,7 +117,7 @@ class _MobileIndexState extends State<MobileIndex> {
                                     FontAwesomeIcons.users,
                                     color: Colors.white,
                                   ),
-                                  data: const Charts()),
+                                  data: Body()),
                             ],
                           ),
                         ],
