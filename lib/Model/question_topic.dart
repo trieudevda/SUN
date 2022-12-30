@@ -1,5 +1,8 @@
-class QuestionDetail{
+import 'main_connect_firebase.dart';
+
+class QuestionTopic{
   String? nameQuestionTopic;
   String? status;
-  QuestionDetail({this.nameQuestionTopic,this.status});
+  List? questions;
+  QuestionTopic({this.nameQuestionTopic,this.status,this.questions});
 }

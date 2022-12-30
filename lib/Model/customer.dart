@@ -36,12 +36,11 @@ class Customer{
     'status':status,
   };
   //
-  Future<dynamic> read() async{
-    final data= await MainConnect.getUser();
-    return data;
+  Future<Object?> read() async{
+    return await MainConnect.getUser();
   }
-  Future<void> write(String collectionData, Map<String,dynamic> jsonData) async{
-    await MainConnect.setDataFromFirebase(collectionData, jsonData);
+  Future<void> write(BuildContext context,String email,String password) async{
+    await MainConnect.signup(context,email,password);
   }
   Future<dynamic> update()async{}
   Future<dynamic> delete()async{}

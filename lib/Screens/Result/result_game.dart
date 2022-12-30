@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../components/background_custom.dart';
 import '../../components/function_custom.dart';
 import '../Index/index_screen.dart';
+import 'components/row_result.dart';
 class ResultGame extends StatelessWidget {
   ResultGame({Key? key,required this.point,required this.exp,required this.numberOfAnswers}) : super(key: key);
   int point=0;
   int exp=0;
   int numberOfAnswers=0;
-  final temp=[];
 
   @override
   Widget build(BuildContext context) {
@@ -22,55 +22,19 @@ class ResultGame extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment:MainAxisAlignment.center,
-                children: const[
-                  Text('Kết quả cuối cùng',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24,),),
-                ],
-              ),
-              SizedBox(height: 70,),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: const[
-                  Text('Số câu trả lời đúng'),
-                  Text('21'),
-                ],
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: const[
-                  Text('Số câu trả lời sai'),
-                  Text('21'),
-                ],
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: const[
-                  Text('Tổng điểm'),
-                  Text('21'),
-                ],
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: const[
-                  Text('Tổng kinh nghiệm'),
-                  Text('21'),
-                ],
-              ),
-              SizedBox(height: 50,),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: const[
-                  Text(
-                      'Chúc mừng bạn đã hoàn thành trò chơi',
-                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(height: 80,),
+              const SizedBox(height: 20,),
+              RowResultHappy('Kết quả cuối cùng',const TextStyle(fontWeight: FontWeight.bold,fontSize: 32,)),
+              Image.asset('image/gifs/sanh.gif'),
+              RowResultRow('Số câu trả lời đúng',21),
+              const SizedBox(height: 20,),
+              RowResultRow('Số câu trả lời sai',22),
+              const SizedBox(height: 20,),
+              RowResultRow('Tổng điểm',23),
+              const SizedBox(height: 20,),
+              RowResultRow('Tổng kinh nghiệm',24),
+              const SizedBox(height: 50,),
+              RowResultHappy('Chúc mừng bạn đã hoàn thành trò chơi',const TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+              const SizedBox(height: 50,),
               InkWell(
                 borderRadius: BorderRadius.circular(30.0),
                 onTap: () {
@@ -89,7 +53,7 @@ class ResultGame extends StatelessWidget {
                       color: const Color.fromRGBO(134, 0, 179, 1),
                     ),
                     padding: const EdgeInsets.all(20.0),
-                     child: Text('Về trang chủ'),
+                     child: const Text('Về trang chủ',style:TextStyle(fontSize: 16,color: Colors.white,),),
                   ),
                 ),
               ),

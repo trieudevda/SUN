@@ -1,10 +1,11 @@
+import 'package:do_an/components/background_custom.dart';
 import 'package:flutter/material.dart';
 
 Widget countstar(int countstar) {
   int temp = countstar.floor();
   List<Icon> lststar = List.empty(growable: true);
   for (var i = 0; i < temp; i++) {
-    lststar.add(Icon(
+    lststar.add(const Icon(
       Icons.star,
       color: Color.fromARGB(255, 236, 207, 43),
     ));
@@ -14,8 +15,8 @@ Widget countstar(int countstar) {
   );
 }
 
-class lichsu extends StatelessWidget {
-  lichsu(
+class History extends StatelessWidget {
+  History(
       {super.key,
       required this.tran,
       required this.rank,
@@ -25,86 +26,73 @@ class lichsu extends StatelessWidget {
       required this.ttcn});
   String tran, cap, ten, ttcn, ttcd;
   int rank;
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+  Widget AddText(String text,final data, Color color){
+    return Container(
+      padding:const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 6,
+            child: Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                ),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child:Text(
+              data.toString(),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    double chia = 5;
-    double chia2 = 9;
-    int font = 25;
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(top: 100),
+    return BackgroundCustom(
       child: Container(
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Container(
-            width: MediaQuery.of(context).size.width / chia2,
-            child: Row(
+        height: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.only(left: 40,right:40,top: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(bottom: 40),
+              child: const Text('Lịch Sử Đấu',style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  tran,
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / font,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
-                )
+                AddText('Số trận:',tran,Colors.black),
+                // countstar(rank)
+                AddText('Hạng:',rank,Colors.black),
+                AddText('Cấp:',cap, Color.fromARGB(255, 11, 5, 10)),
+                AddText('Tên nhân vật:',ten,Colors.black),
+                AddText('ttcn:',ttcn,Colors.black),
+                AddText('ttcd:',ttcd,Colors.black),
               ],
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / chia,
-            child: Row(
-              children: [countstar(rank)],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / chia2,
-            child: Row(
-              children: [
-                Text(cap,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / font,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 11, 5, 10)))
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / chia,
-            child: Row(
-              children: [
-                Text(ten,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / font,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black))
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 10,
-            child: Row(
-              children: [
-                Text(ttcn,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / font,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black))
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 10,
-            child: Row(
-              children: [
-                Text(ttcd,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / font,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black))
-              ],
-            ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

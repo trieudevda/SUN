@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -64,36 +66,82 @@ class MainConnect{
     }
   }
   // get user
-  static Future<dynamic> getUser()async{
+  static Future<Object?> getUser()async{
     final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final data={"name":user.displayName,"email":user.email,"photoUrl":user.photoURL,"emailVerified":user.emailVerified,'uid':user.uid,};
-      return data;
-    }
-    else{
-      return false;
-    }
+    String? name= user?.displayName;
+    String? email= user?.email;
+    String? photoUrl= user?.photoURL;
+    bool? emailVerified= user?.emailVerified;
+    String? uid= user?.uid;
+
+   final data={"name":name,"email":email,"photoUrl":photoUrl,"emailVerified":emailVerified,'uid':uid,};
+    return data;
   }
   // set user
+  static Future<dynamic> signup(BuildContext context,String email,String password) async {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>const WelcomeScreen()
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        debugPrint('Mật khẩu được cung cấp quá yếu.');
+      } else if (e.code == 'email-already-in-use') {
+        debugPrint('Tài khoản đã tồn tại.');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
   //update user
+  static Future<void> update(User? user)async{
+    await user?.updateDisplayName("Jane Q. User");
+    await user?.updatePhotoURL("https://example.com/jane-q-user/profile.jpg");
+  }
   // delete user
   // get data
   // mainConnect.setDataFromFirebase('user',{"sdddd": "Ls Angeles","state": "CA","dddd": "dsdcxcxcxcxs"});
-  static Future<List<dynamic>> getDataFromFirebase(final collectionData) async{
-    List docs=[];
-    await FirebaseFirestore.instance.collection(collectionData).get()
-        .then((event) {
-            for (var doc in event.docs) {
-              docs.add(doc.data());
-              // debugPrint("${doc.id} => ${doc.data()}");
-              // doc.data().forEach((key, value) {debugPrint("$key:$value");});
-            }
-            debugPrint("${docs.runtimeType}");
-            return docs;
-          })
-        .catchError((error){
-         debugPrint(error);
-        });
+  static Future<List<Map<String,dynamic>>> getDataFromFirebase(String collectionData,String doc) async{
+    List<Map<String,dynamic>> docs=[];
+    //
+    if(doc==''){
+      await FirebaseFirestore.instance.collection(collectionData).get()
+          .then((event) {
+        for (var doc in event.docs) {
+          // doc.data().forEach((key, value) {
+          //   // debugPrint("$key:$value");
+          // });
+          docs.add(doc.data());
+        }
+        // debugPrint("docs he: ${docs}");
+        return docs;
+      })
+          .catchError((error){
+        debugPrint('error'+error);
+      });
+    }
+    else{
+      await FirebaseFirestore.instance.collection(collectionData).doc(doc).get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          //   if(documentSnapshot.data()!=null) {
+          //     documentSnapshot?.data().entries?.forEach((e)=>{});
+          // }
+          print('Document data: ${documentSnapshot.data()}');
+          return documentSnapshot.data();
+        } else {
+          print('Document does not exist on the database');
+        }
+      });
+    }
+    // debugPrint('run time he: ${docs.runtimeType}');
     return docs;
   }
   // set data

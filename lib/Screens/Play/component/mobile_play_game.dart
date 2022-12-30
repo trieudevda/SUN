@@ -55,28 +55,14 @@ class _PlayGameInitState extends State<PlayGameInit> {
     final question = data[_currentIndex];
     void checkQuestion() {
       if (_currentIndex <= (data.length - 1) && question.status == "true") {
-        AlertDialog alert = AlertDialog(
-          content: const Text('Bạn đã trả lời đúng!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _currentIndex++;
-                });
-              },
-              child: const Text('Tiếp tục'),
-            ),
-          ],
-        );
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return alert;
-          },
-        );
+        ()async{
+          await showMessageContinueGame(context,'Bạn đã trả lời đúng!');
+          setState(() {
+            _currentIndex++;
+          });
+        };
       } else {
-        showMessageEndGame1(context, 'Chúc bạn may mắn lần sau!', _point, _exp,
-            _numberOfAnswers);
+        showMessageEndGame1(context, 'Chúc bạn may mắn lần sau!', _point, _exp,_numberOfAnswers);
       }
     }
 

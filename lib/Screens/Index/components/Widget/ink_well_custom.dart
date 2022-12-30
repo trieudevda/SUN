@@ -1,9 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:do_an/Screens/Index/components/Widget/setting_game.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../../../constants.dart';
 
 class InkWellCustom extends StatelessWidget {
   InkWellCustom({Key? key, required this.icon, required this.data})
@@ -17,9 +14,6 @@ class InkWellCustom extends StatelessWidget {
       borderRadius: BorderRadius.circular(30.0),
       onTap: () {
         player.play(AssetSource('button1.mp3'));
-        // AlertDialog alert = AlertDialog(
-        //   content: Text('check'),
-        // );
         showDialog(
           context: context,
           builder: (BuildContext context) {

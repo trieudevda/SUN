@@ -114,32 +114,49 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      titlePadding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 0),
       title: Container(
-          height: MediaQuery.of(context).size.height / 10.0,
-          color: kPrimaryColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-              Text(
-                'Cài đặt',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              )
-            ],
-          )),
-      content: SingleChildScrollView(
-        child: Container(
-          // height: MediaQuery.of(context).size.height / 6.0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [VoiCustom(), SingCustom()],
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
           ),
+          color: kPrimaryColor,
+        ),
+        height: MediaQuery.of(context).size.height / 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            Text(
+              'Cài đặt',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            )
+          ],
+        ),
+      ),
+      contentPadding: const EdgeInsets.only(left: 10,right: 10,top: 0,bottom: 10),
+      content: Container(
+        decoration:const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+          color:Color.fromRGBO(249, 230, 255, 1),
+        ),
+        height: MediaQuery.of(context).size.height*0.13,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: const [
+            VoiCustom(),
+            SingCustom()
+          ],
         ),
       ),
     );

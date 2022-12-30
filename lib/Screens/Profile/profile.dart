@@ -6,7 +6,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/h15.jpg"),
                 fit: BoxFit.cover,

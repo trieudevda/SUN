@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:do_an/Model/main_connect_firebase.dart';
+
 class Question {
   String? idQuestionTopic;
   final idAnswer;
@@ -7,6 +11,13 @@ class Question {
   int? point;
   String? status;
   Question({this.idQuestionTopic, this.idAnswer, this.title,this.difficultyLevel, this.addExperience, this.point,this.status});
+  Future<List<Map<String,dynamic>>> read(final collection)async{
+    final data=await MainConnect.getDataFromFirebase(collection,'');
+    return data;
+  }
+  Map<String,dynamic> toJson()=>{
+
+  };
 }
 
 final List<Question> data = [

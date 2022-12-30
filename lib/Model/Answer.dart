@@ -17,8 +17,12 @@ class Answer{
     data["result"]=result;
     return data;
   }
-  Future<dynamic> read() async {
-    List<dynamic> data=await MainConnect.getDataFromFirebase('Answer');
+  // Future<Map<String,dynamic>> read() async {
+  //   Map<String,dynamic> data=await MainConnect.getDataFromFirebase('Answer','');
+  //   return data;
+  // }
+  Future<List<Map<String,dynamic>>> read() async {
+    final List<Map<String,dynamic>> data=await MainConnect.getDataFromFirebase('Answer','');
     return data;
   }
   Future<dynamic> create(String json) async {

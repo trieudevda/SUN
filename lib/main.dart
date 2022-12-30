@@ -4,6 +4,7 @@ import 'package:do_an/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'firebase_options.dart';
 
 bool checkAuth=false;
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           ),
       ),
       home: checkAuth?const IndexCustom():const WelcomeScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

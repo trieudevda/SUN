@@ -2,6 +2,7 @@ import 'package:do_an/Model/main_connect_firebase.dart';
 import 'package:flutter/material.dart';
 
 import '../Screens/Result/result_game.dart';
+import '../constants.dart';
 
 Future<bool> onWillPop()async{
   return false;
@@ -26,15 +27,38 @@ Future<bool> onWillPopExitGame(BuildContext context) async{
   ) ??
   false;
 }
+Future<dynamic> showMessageContinueGame(BuildContext context,String text){
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: borderAlert,
+        backgroundColor: backgroundAlert,
+        content: Text(text,style: bodyAlert,),
+        actions: <Widget>[
+          TextButton(
+            style: textButtonAlert,
+            onPressed: (){ },
+            child: const Text('Tiếp tục',style: buttonAlert,),
+          ),
+        ],
+      );
+    },
+  );
+}
 Future<dynamic> showMessageEndGame(BuildContext context,String text,int point,int exp,int numberOfAnswers){
   return showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Text(text),
+        shape: borderAlert,
+        backgroundColor: backgroundAlert,
+        content: Text(text,style: bodyAlert,),
         actions: <Widget>[
           TextButton(
+            style: textButtonAlert,
             onPressed: (){
               Navigator.push(
                 context,
@@ -43,7 +67,7 @@ Future<dynamic> showMessageEndGame(BuildContext context,String text,int point,in
                 ),
               );
             },
-            child: const Text('Chấp nhận'),
+            child: const Text('Chấp nhận',style: buttonAlert,),
           ),
         ],
       );
@@ -56,9 +80,12 @@ Future<void> showMessageEndGame1(BuildContext context,String text,int point,int 
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Text(text),
+        shape: borderAlert,
+        backgroundColor: backgroundAlert,
+        content: Text(text,style: bodyAlert,),
         actions: <Widget>[
           TextButton(
+            style: textButtonAlert,
             onPressed: (){
               Navigator.push(
                 context,
@@ -67,7 +94,7 @@ Future<void> showMessageEndGame1(BuildContext context,String text,int point,int 
                 ),
               );
             },
-            child: const Text('Chấp nhận'),
+            child: const Text('Chấp nhận',style: buttonAlert),
           ),
         ],
       );
@@ -80,13 +107,27 @@ Future<dynamic> logoutGame(BuildContext context)async{
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: const Text('Bạn chắc chắn muốn đăng xuất!'),
+        shape: borderAlert,
+        backgroundColor: backgroundAlert,
+        title: const Text(
+          "Thông báo!",
+          textAlign: TextAlign.center,
+          style: titleAlert,
+        ),
+        content: const Text(
+          'Chấp nhận đăng xuất, vui lòng nhấn tiếp tục.',
+          style: bodyAlert,
+        ),
         actions: <Widget>[
           TextButton(
+            style: textButtonAlert,
             onPressed: (){
               MainConnect().logoutFirebase(context);
             },
-            child: const Text('Chấp nhận'),
+            child:const Padding(
+              padding: EdgeInsets.only(left: 10,right: 10,top: 4,bottom: 4),
+              child: Text('Tiếp tục',style: buttonAlert,),
+            ),
           ),
         ],
       );

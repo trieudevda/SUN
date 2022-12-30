@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import '../../history/history.dart';
+
 class ProfileIndex extends StatelessWidget {
   const ProfileIndex({Key? key}) : super(key: key);
 
@@ -154,6 +156,12 @@ class _ProfileInitState extends State<ProfileInit> {
                 child: ElevatedButton(
                     onPressed: () {
                       player.play(AssetSource('button1.mp3'));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => History(tran:'50',rank:5, cap:'179', ten:'ahao', ttcn:'dasd', ttcd:'ds')
+                        ),
+                      );
                     },
                     child: Text('Lịch sử đấu'.toUpperCase()))))
       ],

@@ -7,17 +7,17 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(children: [
-        ProfilePic(),
-        SizedBox(height: 20),
-        Text(
+        const ProfilePic(),
+        const SizedBox(height: 20),
+        const Text(
           'Level: 50',
           style: TextStyle(
               fontSize: 20, color: Color.fromARGB(255, 241, 171, 241)),
         ),
         TextButton(
-          child: Text("Thay đổi thông tin"),
+          child: const Text("Thay đổi thông tin"),
           onPressed: () => {},
         ),
         ProfileMenu(
@@ -36,18 +36,18 @@ class Body extends StatelessWidget {
           press: () {},
         ),
         Row(children: [
-          SizedBox(width: 150),
+          const SizedBox(width: 150),
           ElevatedButton(
-            child: Text(
+            child: const Text(
               "Đăng xuất",
             ),
             onPressed: () {},
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           ElevatedButton(
-            child: Text(
+            child: const Text(
               "Quay lại",
             ),
             onPressed: () {},

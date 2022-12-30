@@ -2,10 +2,10 @@ import 'package:do_an/Screens/Welcome/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
+
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
 
@@ -35,18 +35,56 @@ class _SignUpFormState extends State<SignUpForm> {
   bool checkLength(){
     return password.text.length<8 ? false : true;
   }
+  Widget _minute(){
+    return TweenAnimationBuilder<Duration>(
+      duration: const Duration(seconds: 10),
+      tween: Tween(begin: const Duration(seconds: 10), end: Duration.zero),
+      onEnd: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>const WelcomeScreen()
+          ),
+        );
+      },
+      builder: (BuildContext context, Duration value, Widget? child) {
+        final seconds = value.inSeconds % 60;
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text('(${seconds}s)',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        );
+      },
+    );
+  }
   void signup(BuildContext context) async {
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>const WelcomeScreen()
-        ),
+      await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title:const Text('Chúc Mừng'),
+            content: Row(
+              children: [
+                const Text('Đăng ký tài khoản thành công, đang chuyển vào trang đăng nhập!'),
+                _minute(),
+              ],
+            ),
+          );
+        },
       );
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('Mật khẩu được cung cấp quá yếu.');
